@@ -1,41 +1,73 @@
-# Toptal Test Food Delivery
+# React + TypeScript + Vite
 
-## BACKEND
+This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-The backend folder consists on a Restful API backend application buil in Node.js and using SQLite as database.
+Currently, two official plugins are available:
 
-This application serves only as a backend for the candidates to build an frontend application. You're not authorized to share or reuse the contents of this application by Toptal's Screening Procsess agreement
+- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
+- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
 
-You can build your project using the technology at your choice.
+## React Compiler
 
-You can find the Swagger interactive documentation listed on instructions below, but to serve as purpose for your Technical Project Assignment, the application serves the following content:
+The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
 
-### Authentication
-You're able to authenticate to the backend using email and password, request an JWT Authentication Token, and use it to interact with the endpoints.
+## Expanding the ESLint configuration
 
-### User Account
-You're able to create new users with Costumer or Owner roles.
+If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
 
-### Restaurants
-Owners are able to create, edit or delete Resturants
-Customers are able to see the list of Restaurants
+```js
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
 
-### Meals 
-Owners are able to create, edit or delete Meals for each of his Restaurants
-Customers are able to see the least of the Meals for each Restaurant
+      // Remove tseslint.configs.recommended and replace with this
+      tseslint.configs.recommendedTypeChecked,
+      // Alternatively, use this for stricter rules
+      tseslint.configs.strictTypeChecked,
+      // Optionally, add this for stylistic rules
+      tseslint.configs.stylisticTypeChecked,
 
-### Orders
-Owners are able to check the list of Orders, get details of a single Order, check and change their status, and see the status history.
-Customers are able to create new Orders, get details of a single Order, see the status history, and change the last status of the order to "Received"
+      // Other configs...
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```
 
-### Coupons
-Owners are able to create, edit or delete discount Coupons for each Restaurant
-Customers are able to get the list of Coupons for an Restaurant and retrieve them on their Orders 
+You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
 
+```js
+// eslint.config.js
+import reactX from 'eslint-plugin-react-x'
+import reactDom from 'eslint-plugin-react-dom'
 
-## UI
-
-The ui folder consists on a boilerplate with a set of pages so you can use as an start point to build your application. Source code was build using MaterialUI. You can use it entirely, partially or just for inspiration if you want to create your own UI from scratch. Feel free to use any other technology of your choice to build your project.
-
-
-
+export default defineConfig([
+  globalIgnores(['dist']),
+  {
+    files: ['**/*.{ts,tsx}'],
+    extends: [
+      // Other configs...
+      // Enable lint rules for React
+      reactX.configs['recommended-typescript'],
+      // Enable lint rules for React DOM
+      reactDom.configs.recommended,
+    ],
+    languageOptions: {
+      parserOptions: {
+        project: ['./tsconfig.node.json', './tsconfig.app.json'],
+        tsconfigRootDir: import.meta.dirname,
+      },
+      // other options...
+    },
+  },
+])
+```

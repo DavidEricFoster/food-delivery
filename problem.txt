@@ -1,0 +1,1 @@
+The cart does not currently allow the user to adjust the quantity of an item without leaving the cart. Please create an increase and a reduce quantity button for the cart item. The increase button should have a label "+" and the reduce button should have the label "-". When the quantity is reduced to 0, the item should be removed from the cart.
